@@ -1,0 +1,6 @@
+# Hide the original Adobe CC clone from Netlify deploys
+adobe-dupe/
+index.html
+styles.css
+.claude/
+.git/
