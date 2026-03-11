@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Open Partners – Dark UI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- OP branded background using the Abyss gradient image -->
+  <div class="background"></div>
+
+  <!-- Main application window – the dark glass container -->
+  <div class="app-window">
+
+    <!-- Workspace control bar -->
+    <div class="control-bar">
+
+      <!-- Left: workspace switcher (single OP identity) -->
+      <div class="control-bar-left">
+        <div class="workspace-switcher">
+          <div class="workspace-icon">OP</div>
+          <span class="workspace-name">Open Partners</span>
+          <svg class="workspace-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Center: AI command bar -->
+      <div class="command-bar">
+        <svg class="command-bar-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2a4 4 0 0 1 4 4v1a3 3 0 0 1 3 3v1a2 2 0 0 1-2 2h-1l-2 8h-4l-2-8H7a2 2 0 0 1-2-2v-1a3 3 0 0 1 3-3V6a4 4 0 0 1 4-4z"/>
+          <circle cx="9" cy="9" r="1" fill="currentColor"/>
+          <circle cx="15" cy="9" r="1" fill="currentColor"/>
+        </svg>
+        <span class="command-bar-text">Ask OP, run a tool, or search…</span>
+        <kbd class="command-bar-shortcut">⌘K</kbd>
+      </div>
+
+      <!-- Right: global controls -->
+      <div class="control-bar-right">
+        <!-- Activity pulse -->
+        <div class="control-icon" title="Activity">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+          <span class="control-dot"></span>
+        </div>
+        <!-- Notifications -->
+        <div class="control-icon" title="Notifications">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          <span class="badge">3</span>
+        </div>
+        <!-- Settings -->
+        <div class="control-icon" title="Settings">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+        </div>
+        <!-- Profile avatar -->
+        <div class="control-avatar">
+          <div class="control-avatar-img"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Content area: sidebar + main -->
+    <div class="content-area">
+
+      <!-- Left sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <span class="sidebar-label">Overview</span>
+          <ul class="sidebar-list">
+            <li class="sidebar-item active">
+              <span class="sidebar-icon grid-icon">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+                  <rect x="1" y="1" width="4" height="4" rx="1"/>
+                  <rect x="7" y="1" width="4" height="4" rx="1"/>
+                  <rect x="1" y="7" width="4" height="4" rx="1"/>
+                  <rect x="7" y="7" width="4" height="4" rx="1"/>
+                </svg>
+              </span>
+              Dashboard
+            </li>
+            <li class="sidebar-item">
+              <span class="sidebar-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                </svg>
+              </span>
+              Activity
+              <span class="updates-badge">3</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <span class="sidebar-label">Platform</span>
+          <ul class="sidebar-list">
+            <li class="sidebar-item">
+              <span class="sidebar-icon">
+                <!-- Agents (brain/network icon) -->
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="5" r="3"/>
+                  <circle cx="5" cy="19" r="3"/>
+                  <circle cx="19" cy="19" r="3"/>
+                  <line x1="12" y1="8" x2="12" y2="12"/>
+                  <line x1="12" y1="12" x2="5" y2="16"/>
+                  <line x1="12" y1="12" x2="19" y2="16"/>
+                </svg>
+              </span>
+              Agents
+            </li>
+            <li class="sidebar-item">
+              <span class="sidebar-icon">
+                <!-- Tools (wrench icon) -->
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                </svg>
+              </span>
+              Tools
+            </li>
+            <li class="sidebar-item">
+              <span class="sidebar-icon">
+                <!-- Chatbots (chat bubble icon) -->
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+              </span>
+              Chatbots
+            </li>
+            <li class="sidebar-item">
+              <span class="sidebar-icon">
+                <!-- Automations (workflow/bot icon) -->
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="4" width="8" height="6" rx="1"/>
+                  <rect x="14" y="14" width="8" height="6" rx="1"/>
+                  <path d="M6 10v2a2 2 0 0 0 2 2h6"/>
+                  <polyline points="16 12 18 14 16 16"/>
+                </svg>
+              </span>
+              Automations
+            </li>
+            <li class="sidebar-item">
+              <span class="sidebar-icon">
+                <!-- Analytics (bar chart icon) -->
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="18" y1="20" x2="18" y2="10"/>
+                  <line x1="12" y1="20" x2="12" y2="4"/>
+                  <line x1="6" y1="20" x2="6" y2="14"/>
+                </svg>
+              </span>
+              Analytics
+            </li>
+            <li class="sidebar-item">
+              <span class="sidebar-icon">
+                <!-- Integrations (plug icon) -->
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22v-5"/>
+                  <path d="M9 8V2"/>
+                  <path d="M15 8V2"/>
+                  <path d="M18 8v5a6 6 0 0 1-12 0V8z"/>
+                </svg>
+              </span>
+              Integrations
+            </li>
+          </ul>
+        </div>
+
+        <!-- Sidebar bottom: search + profile pinned at bottom -->
+        <div class="sidebar-bottom">
+          <div class="sidebar-search">
+            <svg class="sidebar-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="M21 21l-4.35-4.35"/>
+            </svg>
+            <span class="sidebar-search-text">Search…</span>
+          </div>
+
+          <div class="sidebar-profile">
+            <div class="sidebar-profile-avatar">OP</div>
+            <div class="sidebar-profile-info">
+              <span class="sidebar-profile-name">Open Partners</span>
+              <span class="sidebar-profile-meta">Component Library v1.0</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main content -->
+      <main class="main-content">
+        <!-- Top row: promo banner + stat card side by side -->
+        <div class="top-row">
+          <!-- Promotional banner – OP branded (half width) -->
+          <div class="promo-banner">
+            <div class="promo-content">
+              <div class="myop-logo">
+                <h2 class="myop-text">My OP</h2>
+                <svg class="myop-bird" viewBox="490 0 90 85" fill="white" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="554.5" cy="18.8" r="1.6"/>
+                  <polygon points="573.7,2 563.9,10.3 573.7,6"/>
+                  <polygon points="566.7,1 562.9,9.5 570.7,1"/>
+                  <path d="M569.1,11L559,14.3c1.2,1.2,1.9,2.9,1.9,4.5V41c0,7-2.7,13.9-8,19.2c-5.3,5.3-12.3,8-19.2,8c-6,0-11.9-2-16.8-5.8
+                    l2.3-2.3c9.4,7.2,22.9,6.5,31.5-2.1c4.7-4.7,7-10.8,7-17c0-0.9-0.7-1.6-1.6-1.6c-0.9,0-1.6,0.7-1.6,1.6c0,5.3-2,10.6-6.1,14.7
+                    c-7.4,7.4-18.8,8-27,2.1l23.7-23.7c3.7-3.7,3.7-9.8,0-13.6c-0.2-0.2-0.5-0.4-0.7-0.7l0,0l5.6-5.6c1.2-1.2,2.9-1.9,4.5-1.9
+                    s3.3,0.6,4.5,1.9l3.2-9.9L557,9.5c-0.8-0.2-1.6-0.3-2.5-0.3c-2.5,0-4.9,0.9-6.8,2.8l-8.8,8.8c0.5,0.1,1.1,0.3,1.6,0.5
+                    c0.9,0.3,1.7,0.8,2.4,1.5c2.5,2.5,2.5,6.6,0,9.1L493.7,81h4.5l16.4-16.4l0,0c4.5,3.6,10,6,16,6.6l-4,9.8h3.5l4-9.6
+                    c1.2,0,2.4-0.1,3.6-0.2l-4.2,9.8h3.5l4.4-10.6c13.1-3.4,22.8-15.3,22.8-29.5l0,0V18.8c0-0.8-0.1-1.7-0.3-2.5l0.9-0.9L569.1,11z"/>
+                </svg>
+              </div>
+              <p class="promo-text">Manage your day smarter, faster, better. Your campaigns, clients and creative workflows — all in one place.</p>
+              <!-- Informational context card — no CTA -->
+            </div>
+          </div>
+
+          <!-- Today summary panel -->
+          <div class="report-card stat-card today-panel">
+            <h3 class="today-title">Today</h3>
+            <div class="today-metrics">
+              <div class="today-metric">
+                <div class="today-metric-icon green">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="5" r="3"/>
+                    <circle cx="5" cy="19" r="3"/>
+                    <circle cx="19" cy="19" r="3"/>
+                    <line x1="12" y1="8" x2="12" y2="12"/>
+                    <line x1="12" y1="12" x2="5" y2="16"/>
+                    <line x1="12" y1="12" x2="19" y2="16"/>
+                  </svg>
+                </div>
+                <div class="today-metric-info">
+                  <span class="today-metric-value">3</span>
+                  <span class="today-metric-label">Agents Active</span>
+                </div>
+              </div>
+              <div class="today-metric">
+                <div class="today-metric-icon purple">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="4" width="8" height="6" rx="1"/>
+                    <rect x="14" y="14" width="8" height="6" rx="1"/>
+                    <path d="M6 10v2a2 2 0 0 0 2 2h6"/>
+                    <polyline points="16 12 18 14 16 16"/>
+                  </svg>
+                </div>
+                <div class="today-metric-info">
+                  <span class="today-metric-value">2</span>
+                  <span class="today-metric-label">Workflows Running</span>
+                </div>
+              </div>
+              <div class="today-metric">
+                <div class="today-metric-icon amber">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                    <line x1="12" y1="9" x2="12" y2="13"/>
+                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                  </svg>
+                </div>
+                <div class="today-metric-info">
+                  <span class="today-metric-value">1</span>
+                  <span class="today-metric-label">Alerts</span>
+                </div>
+              </div>
+              <div class="today-metric">
+                <div class="today-metric-icon blue">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 11l3 3L22 4"/>
+                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                  </svg>
+                </div>
+                <div class="today-metric-info">
+                  <span class="today-metric-value">5</span>
+                  <span class="today-metric-label">Tasks Today</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Most Used Tools -->
+        <h2 class="section-title">Most Used Tools</h2>
+
+        <div class="tools-list">
+          <div class="tool-row">
+            <div class="tool-icon purple">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 19l7-7 3 3-7 7-3-3z"/>
+                <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
+                <path d="M2 2l7.586 7.586"/>
+                <circle cx="11" cy="11" r="2"/>
+              </svg>
+            </div>
+            <div class="tool-info">
+              <span class="tool-name">Content Generator</span>
+              <span class="tool-time">2 hours ago</span>
+            </div>
+            <div class="tool-action">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="tool-row">
+            <div class="tool-icon blue">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <div class="tool-info">
+              <span class="tool-name">Client CRM</span>
+              <span class="tool-time">Today at 9:42am</span>
+            </div>
+            <div class="tool-action">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="tool-row">
+            <div class="tool-icon amber">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <circle cx="12" cy="12" r="6"/>
+                <circle cx="12" cy="12" r="2"/>
+              </svg>
+            </div>
+            <div class="tool-info">
+              <span class="tool-name">Campaign Builder</span>
+              <span class="tool-time">Yesterday</span>
+            </div>
+            <div class="tool-action">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="tool-row">
+            <div class="tool-icon green">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="20" x2="18" y2="10"/>
+                <line x1="12" y1="20" x2="12" y2="4"/>
+                <line x1="6" y1="20" x2="6" y2="14"/>
+              </svg>
+            </div>
+            <div class="tool-info">
+              <span class="tool-name">Analytics Dashboard</span>
+              <span class="tool-time">3 days ago</span>
+            </div>
+            <div class="tool-action">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="tool-row">
+            <div class="tool-icon yellow">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="6" cy="6" r="3"/>
+                <circle cx="6" cy="18" r="3"/>
+                <line x1="6" y1="9" x2="6" y2="15"/>
+                <path d="M18 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                <line x1="18" y1="9" x2="18" y2="21"/>
+              </svg>
+            </div>
+            <div class="tool-info">
+              <span class="tool-name">Workflow Automations</span>
+              <span class="tool-time">Last week</span>
+            </div>
+            <div class="tool-action">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reports Today -->
+        <h2 class="section-title">Reports Today</h2>
+
+        <div class="report-grid">
+
+          <!-- Bar Chart – Tool Usage -->
+          <div class="report-card">
+            <h3 class="report-card-title">Bar Chart — Tool usage</h3>
+            <div class="bar-chart">
+              <div class="bar-y-axis">
+                <span>800</span><span>600</span><span>400</span><span>200</span><span>0</span>
+              </div>
+              <div class="bar-chart-bars">
+                <div class="bar-group">
+                  <div class="bar" style="height: 48%"></div>
+                  <span class="bar-label">P&C Bot</span>
+                </div>
+                <div class="bar-group">
+                  <div class="bar" style="height: 38%"></div>
+                  <span class="bar-label">Brief Builder</span>
+                </div>
+                <div class="bar-group">
+                  <div class="bar" style="height: 85%"></div>
+                  <span class="bar-label">AI Glossary</span>
+                </div>
+                <div class="bar-group">
+                  <div class="bar" style="height: 22%"></div>
+                  <span class="bar-label">Planner</span>
+                </div>
+                <div class="bar-group">
+                  <div class="bar" style="height: 12%"></div>
+                  <span class="bar-label">Voice Check</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Area Chart – Error Rate -->
+          <div class="report-card">
+            <h3 class="report-card-title">Area Chart — Error rate</h3>
+            <div class="area-chart">
+              <div class="area-y-axis">
+                <span>160</span><span>120</span><span>80</span><span>40</span><span>0</span>
+              </div>
+              <div class="area-chart-container">
+                <svg class="area-svg" viewBox="0 0 400 200" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="var(--op-red)" stop-opacity="0.3"/>
+                      <stop offset="100%" stop-color="var(--op-red)" stop-opacity="0.02"/>
+                    </linearGradient>
+                  </defs>
+                  <path class="area-fill" d="M0,80 C30,75 60,50 100,30 C140,10 170,10 200,25 C230,40 260,90 300,100 C340,110 370,85 400,70 L400,200 L0,200 Z" fill="url(#areaFill)"/>
+                  <path class="area-line" d="M0,80 C30,75 60,50 100,30 C140,10 170,10 200,25 C230,40 260,90 300,100 C340,110 370,85 400,70" fill="none" stroke="var(--op-red)" stroke-width="2.5"/>
+                </svg>
+                <div class="area-x-axis">
+                  <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Donut Chart – Tool Status -->
+          <div class="report-card">
+            <h3 class="report-card-title">Donut Chart — Tool status</h3>
+            <div class="donut-chart">
+              <svg class="donut-svg" viewBox="0 0 160 160">
+                <circle cx="80" cy="80" r="60" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="22"/>
+                <!-- Active: ~65% = 245 of 377 -->
+                <circle class="donut-segment donut-active" cx="80" cy="80" r="60" fill="none" stroke="var(--op-green)" stroke-width="22" stroke-dasharray="245 377" stroke-dashoffset="0" transform="rotate(-90 80 80)"/>
+                <!-- Errored: ~15% = 56 of 377 -->
+                <circle class="donut-segment donut-errored" cx="80" cy="80" r="60" fill="none" stroke="var(--op-red)" stroke-width="22" stroke-dasharray="56 377" stroke-dashoffset="-245" transform="rotate(-90 80 80)"/>
+                <!-- Idle: ~20% = 76 of 377 -->
+                <circle class="donut-segment donut-idle" cx="80" cy="80" r="60" fill="none" stroke="var(--op-yellow)" stroke-width="22" stroke-dasharray="76 377" stroke-dashoffset="-301" transform="rotate(-90 80 80)"/>
+              </svg>
+              <div class="donut-legend">
+                <div class="legend-item"><span class="legend-dot" style="background: var(--op-green)"></span>Active</div>
+                <div class="legend-item"><span class="legend-dot" style="background: var(--op-red)"></span>Errored</div>
+                <div class="legend-item"><span class="legend-dot" style="background: var(--op-yellow)"></span>Idle</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Progress Rings -->
+          <div class="report-card">
+            <h3 class="report-card-title">Progress Rings</h3>
+            <div class="progress-rings">
+              <div class="ring-group">
+                <svg class="ring-svg" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="38" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="8"/>
+                  <circle cx="50" cy="50" r="38" fill="none" stroke="var(--op-green)" stroke-width="8" stroke-dasharray="208 239" stroke-linecap="round" transform="rotate(-90 50 50)"/>
+                </svg>
+                <span class="ring-value">87%</span>
+                <span class="ring-label">Uptime</span>
+              </div>
+              <div class="ring-group">
+                <svg class="ring-svg" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="38" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="8"/>
+                  <circle cx="50" cy="50" r="38" fill="none" stroke="var(--op-blue)" stroke-width="8" stroke-dasharray="153 239" stroke-linecap="round" transform="rotate(-90 50 50)"/>
+                </svg>
+                <span class="ring-value">64%</span>
+                <span class="ring-label">Accuracy</span>
+              </div>
+              <div class="ring-group">
+                <svg class="ring-svg" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="38" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="8"/>
+                  <circle cx="50" cy="50" r="38" fill="none" stroke="var(--op-amber)" stroke-width="8" stroke-dasharray="76 239" stroke-linecap="round" transform="rotate(-90 50 50)"/>
+                </svg>
+                <span class="ring-value">32%</span>
+                <span class="ring-label">Capacity</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+</body>
+</html>

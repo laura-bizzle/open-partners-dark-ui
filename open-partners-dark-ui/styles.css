@@ -1,0 +1,1330 @@
+/* ==========================================================================
+   OPEN PARTNERS – DARK UI
+
+   Iteration on the Adobe Creative Cloud glassmorphism clone,
+   re-branded with Open Partners colours, Abyss background image,
+   and OP logo. Same glass construction techniques, new palette.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   OP BRAND COLOUR VARIABLES
+   -------------------------------------------------------------------------- */
+:root {
+  --op-yellow: #FFF519;
+  --op-mustard: #F0CC00;
+  --op-amber: #FB9138;
+  --op-red: #F04F57;
+  --op-purple: #7377F6;
+  --op-blue: #04A1E9;
+  --op-green: #17DDBF;
+  --op-white: #FFFFFF;
+  --op-light-grey: #F5F5F5;
+  --op-black: #111111;
+}
+
+/* --------------------------------------------------------------------------
+   RESET & BASE
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  background: var(--op-black);
+}
+
+/* --------------------------------------------------------------------------
+   BACKGROUND – OP Abyss gradient image
+
+   Instead of layered CSS gradients, we use the OP branded Abyss
+   background image. It features deep purples, warm orange at bottom-left,
+   and pink/blue at the edges — perfect for glass colour bleed.
+   -------------------------------------------------------------------------- */
+.background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: var(--op-black);
+  background-image: url('../assets/backgrounds/OP Gradients Dark_Abyss (1).jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* --------------------------------------------------------------------------
+   APP WINDOW – The main frosted glass container
+
+   Same glass construction as the Adobe version but tuned for the Abyss
+   background. Slightly lower opacity to let the warm orange/purple bleed
+   through more visibly at the edges.
+   -------------------------------------------------------------------------- */
+.app-window {
+  position: relative;
+  z-index: 1;
+  width: 1200px;
+  height: 780px;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  /*
+   * Glass fill: dark with 0.70 opacity — slightly more transparent than
+   * the Adobe version to let the Abyss warm tones bleed through at edges.
+   */
+  background: rgba(12, 8, 20, 0.70);
+
+  /*
+   * backdrop-filter creates the frosted glass blur.
+   * 40px matches the heavy, smooth blur from the Adobe version.
+   */
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+
+  /* Subtle border with glass-edge highlight */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  /* Shadow stack for floating depth */
+  box-shadow:
+    0 25px 80px rgba(0, 0, 0, 0.5),
+    0 10px 30px rgba(0, 0, 0, 0.3),
+    0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/*
+ * Warm colour bleed from the Abyss background.
+ * The Abyss image has warm orange at bottom-left and pink/purple at right,
+ * so we reinforce that with matching tinted radial gradients.
+ */
+.app-window::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 16px;
+  background:
+    radial-gradient(
+      ellipse 40% 50% at 95% 30%,
+      rgba(115, 119, 246, 0.10) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 45% 40% at 10% 85%,
+      rgba(251, 145, 56, 0.08) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse 50% 50% at 90% 80%,
+      rgba(240, 79, 87, 0.06) 0%,
+      transparent 50%
+    );
+}
+
+/* --------------------------------------------------------------------------
+   WORKSPACE CONTROL BAR
+
+   Replaces the Adobe-style title bar with an AI workspace control bar.
+   Three-zone layout: identity (left), command bar (center), controls (right).
+   -------------------------------------------------------------------------- */
+.control-bar {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  padding: 0 20px;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  position: relative;
+  z-index: 10;
+  background: rgba(16, 20, 28, 0.6);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+}
+
+/* LEFT: Product identity + workspace switcher */
+.control-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+  min-width: 180px;
+}
+
+/* Workspace icon — compact OP monogram replacing the full logo */
+.workspace-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--op-yellow);
+  color: var(--op-black);
+  font-size: 10px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+.workspace-switcher {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 8px;
+  transition: background 0.15s;
+}
+
+.workspace-switcher:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.workspace-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.workspace-chevron {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* CENTER: AI command bar — the primary interaction point */
+.command-bar {
+  flex: 1;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.command-bar:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.command-bar-icon {
+  color: var(--op-purple);
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+.command-bar-text {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.3);
+  flex: 1;
+  letter-spacing: 0.01em;
+}
+
+.command-bar-shortcut {
+  font-family: inherit;
+  font-size: 10.5px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 5px;
+  padding: 2px 7px;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+/* RIGHT: Global controls */
+.control-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  min-width: 180px;
+  justify-content: flex-end;
+}
+
+.control-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.45);
+  cursor: pointer;
+  position: relative;
+  transition: background 0.15s, color 0.15s;
+}
+
+.control-icon:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Green activity pulse dot */
+.control-dot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--op-green);
+  border: 1.5px solid rgba(16, 20, 28, 0.8);
+}
+
+/* Notification badge – OP blue */
+.badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: var(--op-blue);
+  color: white;
+  font-size: 8px;
+  font-weight: 700;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  border: 1.5px solid rgba(16, 20, 28, 0.8);
+}
+
+/* Profile avatar */
+.control-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  margin-left: 4px;
+}
+
+.control-avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--op-amber) 0%, var(--op-red) 100%);
+}
+
+/* --------------------------------------------------------------------------
+   CONTENT AREA
+   -------------------------------------------------------------------------- */
+.content-area {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+/* --------------------------------------------------------------------------
+   SIDEBAR
+   -------------------------------------------------------------------------- */
+.sidebar {
+  width: 210px;
+  flex-shrink: 0;
+  padding: 20px 16px 12px 20px;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-section { margin-bottom: 22px; }
+
+/* Push the bottom section to the bottom of the sidebar */
+.sidebar-bottom {
+  margin-top: auto;
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Sidebar search bar */
+.sidebar-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  cursor: pointer;
+}
+
+.sidebar-search-icon {
+  color: rgba(255, 255, 255, 0.35);
+  flex-shrink: 0;
+}
+
+.sidebar-search-text {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* Sidebar profile card */
+.sidebar-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 8px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.sidebar-profile-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--op-yellow);
+  color: var(--op-black);
+  font-size: 12px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+.sidebar-profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.sidebar-profile-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-profile-meta {
+  font-size: 10.5px;
+  color: rgba(255, 255, 255, 0.35);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.35);
+  margin-bottom: 10px;
+  letter-spacing: 0.02em;
+}
+
+.sidebar-list { list-style: none; }
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+  cursor: pointer;
+  position: relative;
+  letter-spacing: 0.01em;
+}
+
+/* Active sidebar item – OP purple-tinted highlight */
+.sidebar-item.active {
+  background: rgba(115, 119, 246, 0.12);
+  color: #ffffff;
+}
+
+.sidebar-icon {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.sidebar-item.active .sidebar-icon {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.font-icon {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-size: 16px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Sidebar badges – OP branded colours */
+.app-badge {
+  font-size: 9px;
+  font-weight: 700;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.app-badge.st { background: var(--op-green); }
+.app-badge.pf { background: var(--op-purple); }
+.app-badge.be { background: var(--op-blue); }
+
+/* Updates badge – OP blue */
+.updates-badge {
+  margin-left: auto;
+  background: var(--op-blue);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  min-width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+}
+
+/* --------------------------------------------------------------------------
+   MAIN CONTENT
+   -------------------------------------------------------------------------- */
+.main-content {
+  flex: 1;
+  padding: 22px 30px 30px 30px;
+  overflow-y: auto;
+}
+
+.main-header {
+  display: flex;
+  align-items: baseline;
+  gap: 30px;
+  margin-bottom: 22px;
+}
+
+.main-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.sub-tabs {
+  display: flex;
+  gap: 24px;
+}
+
+.sub-tab {
+  font-size: 13.5px;
+  color: rgba(255, 255, 255, 0.4);
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 500;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.sub-tab.active { color: #ffffff; }
+
+/* Active sub-tab underline – OP purple */
+.sub-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--op-purple);
+  border-radius: 1px;
+}
+
+/* --------------------------------------------------------------------------
+   TOP ROW – Promo banner + stat card side by side
+   -------------------------------------------------------------------------- */
+.top-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+/* --------------------------------------------------------------------------
+   PROMO BANNER
+
+   Now sits at half-width inside .top-row alongside the stat card.
+   -------------------------------------------------------------------------- */
+.promo-banner {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  height: 210px;
+  flex: 1;
+  display: flex;
+
+  /* OP branded background image */
+  background-image: url('../assets/backgrounds/OP Gradients Colour_Hyperwave.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Stat card sits next to promo, same height, uses report-card glass style */
+.stat-card {
+  flex: 1;
+  height: 210px;
+  min-height: 210px;
+}
+
+.promo-content {
+  padding: 28px 30px;
+  position: relative;
+  z-index: 2;
+  max-width: 400px;
+}
+
+.promo-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 7px;
+  background: var(--op-green);
+  color: var(--op-black);
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+/* "My OP" logo lockup with bird */
+.myop-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.myop-text {
+  font-size: 32px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.myop-bird {
+  height: 34px;
+  width: auto;
+  fill: #ffffff;
+  opacity: 0.95;
+}
+
+.promo-text {
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 18px;
+  max-width: 320px;
+}
+
+/* Promo CTA button – OP yellow/black */
+.promo-btn {
+  padding: 9px 22px;
+  border-radius: 20px;
+  border: none;
+  background: var(--op-yellow);
+  color: var(--op-black);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+}
+
+/* --------------------------------------------------------------------------
+   MOST USED TOOLS
+   -------------------------------------------------------------------------- */
+.section-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 14px;
+  letter-spacing: -0.01em;
+}
+
+.tools-list {
+  margin-bottom: 28px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.tool-row {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  gap: 14px;
+}
+
+.tool-row:last-child {
+  border-bottom: none;
+}
+
+.tool-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: white;
+}
+
+.tool-icon.purple {
+  background: rgba(115, 119, 246, 0.18);
+  color: var(--op-purple);
+}
+
+.tool-icon.blue {
+  background: rgba(4, 161, 233, 0.18);
+  color: var(--op-blue);
+}
+
+.tool-icon.amber {
+  background: rgba(251, 145, 56, 0.18);
+  color: var(--op-amber);
+}
+
+.tool-icon.green {
+  background: rgba(23, 221, 191, 0.18);
+  color: var(--op-green);
+}
+
+.tool-icon.yellow {
+  background: rgba(240, 204, 0, 0.18);
+  color: var(--op-mustard);
+}
+
+.tool-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.tool-name {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #ffffff;
+  letter-spacing: 0.01em;
+}
+
+.tool-time {
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.tool-action {
+  color: rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+}
+
+.tool-action:hover {
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* --------------------------------------------------------------------------
+   SECTION LABELS
+   -------------------------------------------------------------------------- */
+.section-label {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.35);
+  margin-bottom: 12px;
+  letter-spacing: 0.02em;
+}
+
+/* --------------------------------------------------------------------------
+   INSTALLED APPS LIST
+   -------------------------------------------------------------------------- */
+.installed-list {
+  margin-bottom: 28px;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Static scrollbar track */
+.installed-list::after {
+  content: '';
+  position: absolute;
+  right: 6px;
+  top: 12px;
+  bottom: 12px;
+  width: 3px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+
+.installed-list::-webkit-scrollbar { width: 4px; }
+.installed-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 2px;
+  margin: 8px 0;
+}
+.installed-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+}
+
+.app-row {
+  display: flex;
+  align-items: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+.app-row:last-child { border-bottom: none; }
+
+.app-row-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 180px;
+}
+
+.app-row-center {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.app-row-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+/* --------------------------------------------------------------------------
+   APP ICONS – Same Adobe brand colours (unchanged)
+   -------------------------------------------------------------------------- */
+.app-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+}
+
+.app-icon.ps {
+  background: linear-gradient(135deg, #31a8ff 0%, #001e36 100%);
+  border: 1px solid rgba(49, 168, 255, 0.3);
+}
+.app-icon.ai {
+  background: linear-gradient(135deg, #ff9a00 0%, #330000 100%);
+  border: 1px solid rgba(255, 154, 0, 0.3);
+}
+.app-icon.xd {
+  background: linear-gradient(135deg, #ff61f6 0%, #2a0024 100%);
+  border: 1px solid rgba(255, 97, 246, 0.3);
+}
+.app-icon.pr {
+  background: linear-gradient(135deg, #9999ff 0%, #00005b 100%);
+  border: 1px solid rgba(153, 153, 255, 0.3);
+}
+.app-icon.ae {
+  background: linear-gradient(135deg, #9999ff 0%, #00005b 100%);
+  border: 1px solid rgba(153, 153, 255, 0.3);
+}
+.app-icon.id {
+  background: linear-gradient(135deg, #ff3366 0%, #49021f 100%);
+  border: 1px solid rgba(255, 51, 102, 0.3);
+}
+
+.app-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+  letter-spacing: 0.01em;
+}
+
+/* Status dots – OP branded */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.status-dot.green { background: var(--op-green); }
+.status-dot.blue { background: var(--op-blue); }
+
+.status-text {
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* --------------------------------------------------------------------------
+   BUTTONS – OP branded accents
+   -------------------------------------------------------------------------- */
+
+/* "Open" button */
+.btn-open {
+  padding: 7px 24px;
+  border-radius: 20px;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 12.5px;
+  font-weight: 500;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+}
+
+/* "Update this app" button – OP purple accent */
+.btn-update {
+  padding: 7px 20px;
+  border-radius: 20px;
+  border: 1.5px solid var(--op-purple);
+  background: transparent;
+  color: #a0a4ff;
+  font-size: 12.5px;
+  font-weight: 500;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+}
+
+.btn-more {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   REPORT CARDS – Data visualization grid
+
+   2×2 grid of glass cards containing charts. Same glass construction
+   as the plan cards but taller to hold visualizations.
+   -------------------------------------------------------------------------- */
+.report-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  padding-bottom: 20px;
+}
+
+.report-card {
+  border-radius: 14px;
+  padding: 22px 24px;
+  position: relative;
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.05) 0%,
+      rgba(115, 119, 246, 0.03) 100%
+    );
+
+  border: 1px solid rgba(115, 119, 246, 0.10);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* Warm glow at card bottom */
+.report-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60%;
+  border-radius: 0 0 14px 14px;
+  background: linear-gradient(
+    to top,
+    rgba(251, 145, 56, 0.10) 0%,
+    rgba(240, 79, 87, 0.06) 30%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.report-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.report-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 20px;
+  letter-spacing: 0.01em;
+}
+
+/* --------------------------------------------------------------------------
+   BAR CHART
+   -------------------------------------------------------------------------- */
+.bar-chart {
+  display: flex;
+  gap: 8px;
+  height: 180px;
+}
+
+.bar-y-axis {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 22px;
+}
+
+.bar-y-axis span {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.3);
+  text-align: right;
+  min-width: 28px;
+}
+
+.bar-chart-bars {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.bar-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.bar {
+  width: 100%;
+  max-width: 36px;
+  background: var(--op-yellow);
+  border-radius: 3px 3px 0 0;
+  min-height: 4px;
+}
+
+.bar-label {
+  font-size: 9.5px;
+  color: rgba(255, 255, 255, 0.4);
+  white-space: nowrap;
+  position: absolute;
+  bottom: 0;
+  transform: translateY(100%);
+}
+
+.bar-group {
+  position: relative;
+}
+
+.bar-label {
+  position: relative;
+  transform: none;
+  bottom: auto;
+}
+
+/* --------------------------------------------------------------------------
+   AREA CHART
+   -------------------------------------------------------------------------- */
+.area-chart {
+  display: flex;
+  gap: 8px;
+  height: 180px;
+}
+
+.area-y-axis {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 22px;
+}
+
+.area-y-axis span {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.3);
+  text-align: right;
+  min-width: 28px;
+}
+
+.area-chart-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.area-svg {
+  flex: 1;
+  width: 100%;
+}
+
+.area-x-axis {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.area-x-axis span {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* --------------------------------------------------------------------------
+   DONUT CHART
+   -------------------------------------------------------------------------- */
+.donut-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.donut-svg {
+  width: 150px;
+  height: 150px;
+}
+
+.donut-legend {
+  display: flex;
+  gap: 20px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   PROGRESS RINGS
+   -------------------------------------------------------------------------- */
+.progress-rings {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.ring-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+}
+
+.ring-svg {
+  width: 90px;
+  height: 90px;
+}
+
+.ring-value {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -65%);
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.ring-label {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   TODAY SUMMARY PANEL
+   -------------------------------------------------------------------------- */
+.today-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.today-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  margin-bottom: 18px;
+}
+
+.today-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+  justify-content: center;
+}
+
+.today-metric {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.today-metric-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.today-metric-icon.green {
+  background: rgba(23, 221, 191, 0.12);
+  color: var(--op-green);
+}
+
+.today-metric-icon.purple {
+  background: rgba(115, 119, 246, 0.12);
+  color: var(--op-purple);
+}
+
+.today-metric-icon.amber {
+  background: rgba(251, 145, 56, 0.12);
+  color: var(--op-amber);
+}
+
+.today-metric-icon.blue {
+  background: rgba(4, 161, 233, 0.12);
+  color: var(--op-blue);
+}
+
+.today-metric-info {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.today-metric-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.today-metric-label {
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.01em;
+}
+
+/* --------------------------------------------------------------------------
+   SCROLLBAR STYLING
+   -------------------------------------------------------------------------- */
+.main-content::-webkit-scrollbar,
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.main-content::-webkit-scrollbar-track,
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.main-content::-webkit-scrollbar-thumb,
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   NOISE OVERLAY
+   -------------------------------------------------------------------------- */
+.app-window::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 200;
+  pointer-events: none;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  border-radius: 16px;
+}
