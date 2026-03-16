@@ -1378,31 +1378,96 @@ body {
 .theme-toggle__icon--moon { opacity: 1; }
 
 /* ==========================================================================
-   LIGHT MODE – html.theme-light overrides
-   Same layout, inverted colour system, light glassmorphism
+   REUSABLE GLASS TOKEN SYSTEM
+   Three tiers: .glass-panel (base), .glass-card (stronger), .glass-subtle (navigation)
    ========================================================================== */
 
-/* Background: use Digitalism (soft, atmospheric light gradient) */
+/* --- Shadow tokens --- */
+:root {
+  --glass-shadow-subtle:
+    0 1px 2px rgba(0, 0, 0, 0.02),
+    0 2px 8px rgba(0, 0, 0, 0.03);
+  --glass-shadow-card:
+    0 2px 4px rgba(0, 0, 0, 0.02),
+    0 4px 16px rgba(0, 0, 0, 0.04),
+    0 8px 32px rgba(0, 0, 0, 0.03);
+  --glass-shadow-elevated:
+    0 4px 8px rgba(0, 0, 0, 0.03),
+    0 8px 24px rgba(0, 0, 0, 0.05),
+    0 16px 48px rgba(0, 0, 0, 0.04),
+    0 24px 80px rgba(0, 0, 0, 0.06);
+  /* --- Border tokens --- */
+  --glass-border-soft: 1px solid rgba(255, 255, 255, 0.45);
+  --glass-border-medium: 1px solid rgba(255, 255, 255, 0.55);
+  --glass-border-strong: 1.5px solid rgba(255, 255, 255, 0.65);
+  /* --- Inset highlight tokens --- */
+  --glass-highlight-subtle: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  --glass-highlight-medium: inset 0 1px 0 rgba(255, 255, 255, 0.50);
+  --glass-highlight-strong: inset 0 1px 0 rgba(255, 255, 255, 0.65),
+                             inset 0 0 0 0.5px rgba(255, 255, 255, 0.10);
+}
+
+/*
+ * .glass-panel — base glass surface
+ * Use for generic containers, modals, popovers
+ */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.35);
+  border: var(--glass-border-medium);
+  box-shadow: var(--glass-shadow-card), var(--glass-highlight-medium);
+  backdrop-filter: blur(24px) saturate(1.3);
+  -webkit-backdrop-filter: blur(24px) saturate(1.3);
+}
+
+/*
+ * .glass-card — stronger glass for foreground cards
+ * More opaque, deeper shadow, richer highlight
+ */
+.glass-card {
+  background: rgba(255, 255, 255, 0.48);
+  border: var(--glass-border-strong);
+  box-shadow: var(--glass-shadow-card), var(--glass-highlight-strong);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+}
+
+/*
+ * .glass-subtle — lightest glass for sidebars, navigation, toolbars
+ * Maximum transparency, lets the most background colour through
+ */
+.glass-subtle {
+  background: rgba(255, 255, 255, 0.18);
+  border: var(--glass-border-soft);
+  box-shadow: var(--glass-shadow-subtle), var(--glass-highlight-subtle);
+  backdrop-filter: blur(32px) saturate(1.2);
+  -webkit-backdrop-filter: blur(32px) saturate(1.2);
+}
+
+/* ==========================================================================
+   LIGHT MODE – html.theme-light overrides
+   Same layout, inverted colour system, enhanced glassmorphism
+   ========================================================================== */
+
+/* Background: Dawn (warm, soft atmospheric gradient) */
 html.theme-light .background {
   background: #f0ece4;
-  background-image: url('../assets/backgrounds/OP Gradients_Rainbow.jpg');
+  background-image: url('../assets/backgrounds/OP Gradients_Dawn.jpg');
 }
 
 html.theme-light body {
   background: #f0ece4;
 }
 
-/* Main glass container: pure white, translucent — background bleeds through */
+/* ---------- Main glass container — deepest layer, most transparent ---------- */
 html.theme-light .app-window {
-  background: rgba(255, 255, 255, 0.42);
-  border: 1.5px solid rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.32);
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
   box-shadow:
-    0 25px 80px rgba(0, 0, 0, 0.08),
-    0 10px 30px rgba(0, 0, 0, 0.05),
-    0 2px 8px rgba(0, 0, 0, 0.03),
-    inset 0 1px 0 rgba(255, 255, 255, 0.50);
-  backdrop-filter: blur(50px) saturate(1.4);
-  -webkit-backdrop-filter: blur(50px) saturate(1.4);
+    var(--glass-shadow-elevated),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(50px) saturate(1.5);
+  -webkit-backdrop-filter: blur(50px) saturate(1.5);
 }
 
 /* Colour bleed: let background gradient tint the glass softly */
@@ -1410,36 +1475,39 @@ html.theme-light .app-window::after {
   background:
     radial-gradient(
       ellipse 50% 60% at 95% 30%,
-      rgba(115, 119, 246, 0.08) 0%,
+      rgba(115, 119, 246, 0.06) 0%,
       transparent 60%
     ),
     radial-gradient(
       ellipse 50% 45% at 10% 85%,
-      rgba(251, 145, 56, 0.06) 0%,
+      rgba(251, 145, 56, 0.05) 0%,
       transparent 50%
     ),
     radial-gradient(
       ellipse 55% 55% at 90% 80%,
-      rgba(240, 79, 87, 0.05) 0%,
+      rgba(240, 79, 87, 0.04) 0%,
       transparent 50%
     );
 }
 
 /* Noise overlay: slightly stronger on light */
 html.theme-light .app-window::before {
-  opacity: 0.03;
+  opacity: 0.025;
 }
 
-/* ---------- Control bar — white glass ---------- */
+/* ---------- Control bar — subtle glass (navigation tier) ---------- */
 html.theme-light .control-bar {
-  background: rgba(255, 255, 255, 0.30);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.22);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.40);
+  box-shadow:
+    inset 0 -1px 0 rgba(0, 0, 0, 0.02),
+    inset 0 1px 0 rgba(255, 255, 255, 0.40);
+  backdrop-filter: blur(30px) saturate(1.2);
+  -webkit-backdrop-filter: blur(30px) saturate(1.2);
 }
 
 html.theme-light .workspace-switcher:hover {
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0.04);
 }
 
 html.theme-light .workspace-name {
@@ -1451,13 +1519,16 @@ html.theme-light .workspace-chevron {
 }
 
 html.theme-light .command-bar {
-  background: rgba(255, 255, 255, 0.45);
-  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.38);
+  border: 1px solid rgba(255, 255, 255, 0.50);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.02),
+    inset 0 1px 0 rgba(255, 255, 255, 0.50);
 }
 
 html.theme-light .command-bar:hover {
-  background: rgba(255, 255, 255, 0.60);
-  border-color: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.52);
+  border-color: rgba(255, 255, 255, 0.60);
 }
 
 html.theme-light .command-bar-text {
@@ -1466,8 +1537,8 @@ html.theme-light .command-bar-text {
 
 html.theme-light .command-bar-shortcut {
   color: rgba(0, 0, 0, 0.3);
-  background: rgba(255, 255, 255, 0.40);
-  border-color: rgba(255, 255, 255, 0.50);
+  background: rgba(255, 255, 255, 0.35);
+  border-color: rgba(255, 255, 255, 0.45);
 }
 
 html.theme-light .control-icon {
@@ -1487,10 +1558,15 @@ html.theme-light .badge {
   border-color: rgba(255, 255, 255, 0.8);
 }
 
-/* ---------- Sidebar — white glass ---------- */
+/* ---------- Sidebar — subtle glass (navigation tier) ---------- */
 html.theme-light .sidebar {
-  border-right: 1px solid rgba(255, 255, 255, 0.35);
-  background: rgba(255, 255, 255, 0.22);
+  border-right: 1px solid rgba(255, 255, 255, 0.38);
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow:
+    inset -1px 0 0 rgba(0, 0, 0, 0.015),
+    inset 1px 0 0 rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(28px) saturate(1.2);
+  -webkit-backdrop-filter: blur(28px) saturate(1.2);
 }
 
 html.theme-light .sidebar-label {
@@ -1515,8 +1591,9 @@ html.theme-light .sidebar-item.active .sidebar-icon {
 }
 
 html.theme-light .sidebar-search {
-  background: rgba(255, 255, 255, 0.35);
-  border-color: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.30);
+  border: 1px solid rgba(255, 255, 255, 0.40);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.30);
 }
 
 html.theme-light .sidebar-search-icon {
@@ -1552,25 +1629,30 @@ html.theme-light .sub-tab.active {
   color: #1a1a2e;
 }
 
-/* ---------- Promo banner — use Prism (bright, vibrant for legible white text) ---------- */
+/* ---------- Promo banner — stays fully opaque (Prism gradient) ---------- */
 html.theme-light .promo-banner {
   background-image: url('../assets/backgrounds/OP Gradients Colour_Prism.jpg');
-  border-color: rgba(255, 255, 255, 0.50);
+  border: 1.5px solid rgba(255, 255, 255, 0.50);
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.06),
+    0 8px 32px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.30);
 }
 
-/* ---------- Tools list — white glass ---------- */
+/* ---------- Tools list — panel glass tier ---------- */
 html.theme-light .tools-list {
-  background: rgba(255, 255, 255, 0.50);
-  border: 1px solid rgba(255, 255, 255, 0.60);
-  backdrop-filter: blur(16px) saturate(1.3);
-  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+  background: rgba(255, 255, 255, 0.40);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(20px) saturate(1.3);
+  -webkit-backdrop-filter: blur(20px) saturate(1.3);
   box-shadow:
-    0 2px 12px rgba(0, 0, 0, 0.03),
-    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+    var(--glass-shadow-card),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.08);
 }
 
 html.theme-light .tool-row {
-  border-bottom-color: rgba(0, 0, 0, 0.04);
+  border-bottom-color: rgba(0, 0, 0, 0.035);
 }
 
 html.theme-light .tool-name {
@@ -1590,30 +1672,32 @@ html.theme-light .tool-action:hover {
   background: rgba(0, 0, 0, 0.05);
 }
 
-/* ---------- Report cards – white glass, slightly transparent ---------- */
+/* ---------- Report cards — card glass tier (strongest) ---------- */
 html.theme-light .report-card {
-  background: rgba(255, 255, 255, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.45);
+  border: 1.5px solid rgba(255, 255, 255, 0.60);
   box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.04),
-    0 1px 3px rgba(0, 0, 0, 0.02),
-    inset 0 1px 0 rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(16px) saturate(1.3);
-  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+    0 2px 4px rgba(0, 0, 0, 0.02),
+    0 4px 16px rgba(0, 0, 0, 0.04),
+    0 8px 32px rgba(0, 0, 0, 0.03),
+    inset 0 1px 0 rgba(255, 255, 255, 0.60),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
 }
 
-/* Light mode warm glow: softer */
+/* Light mode warm glow: very soft */
 html.theme-light .report-card::after {
   background: linear-gradient(
     to top,
-    rgba(251, 145, 56, 0.04) 0%,
-    rgba(240, 79, 87, 0.02) 30%,
+    rgba(251, 145, 56, 0.03) 0%,
+    rgba(240, 79, 87, 0.015) 30%,
     transparent 100%
   );
 }
 
 html.theme-light .report-card-title {
-  color: rgba(0, 0, 0, 0.60);
+  color: rgba(0, 0, 0, 0.55);
 }
 
 /* ---------- Today panel ---------- */
@@ -1655,11 +1739,11 @@ html.theme-light .bar-label {
 }
 
 html.theme-light .bar-chart-bars {
-  border-bottom-color: rgba(0, 0, 0, 0.08);
+  border-bottom-color: rgba(0, 0, 0, 0.06);
 }
 
 html.theme-light .area-x-axis {
-  border-top-color: rgba(0, 0, 0, 0.08);
+  border-top-color: rgba(0, 0, 0, 0.06);
 }
 
 html.theme-light .legend-item {
@@ -1682,7 +1766,7 @@ html.theme-light .bar {
 /* ---------- Scrollbar – light mode ---------- */
 html.theme-light .main-content::-webkit-scrollbar-thumb,
 html.theme-light .sidebar::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.10);
+  background: rgba(0, 0, 0, 0.08);
 }
 
 /* ---------- Section label ---------- */
@@ -1692,8 +1776,9 @@ html.theme-light .section-label {
 
 /* ---------- Theme toggle: light mode state ---------- */
 html.theme-light .theme-toggle {
-  background: rgba(255, 255, 255, 0.40);
-  border-color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.35);
+  border-color: rgba(255, 255, 255, 0.50);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.30);
 }
 
 html.theme-light .theme-toggle__knob {
@@ -1707,12 +1792,12 @@ html.theme-light .theme-toggle__icon--moon { opacity: 0; }
 
 /* ---------- Donut chart bg ring: adapt for light ---------- */
 html.theme-light .donut-svg > circle:first-child {
-  stroke: rgba(0, 0, 0, 0.06);
+  stroke: rgba(0, 0, 0, 0.05);
 }
 
 /* Progress ring bg circles */
 html.theme-light .ring-svg > circle:first-child {
-  stroke: rgba(0, 0, 0, 0.06);
+  stroke: rgba(0, 0, 0, 0.05);
 }
 
 /* ---------- Global transition for smooth theme switch ---------- */
