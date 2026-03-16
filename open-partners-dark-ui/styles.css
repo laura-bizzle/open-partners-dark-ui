@@ -70,7 +70,8 @@ body {
 .app-window {
   position: relative;
   z-index: 1;
-  width: 1200px;
+  width: calc(100vw - 40px);
+  max-width: 1800px;
   height: 780px;
   border-radius: 16px;
   overflow: hidden;
