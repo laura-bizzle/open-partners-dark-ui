@@ -25,7 +25,9 @@
 /* --------------------------------------------------------------------------
    RESET & BASE
    -------------------------------------------------------------------------- */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -114,21 +116,15 @@ body {
   pointer-events: none;
   border-radius: 16px;
   background:
-    radial-gradient(
-      ellipse 40% 50% at 95% 30%,
+    radial-gradient(ellipse 40% 50% at 95% 30%,
       rgba(115, 119, 246, 0.10) 0%,
-      transparent 60%
-    ),
-    radial-gradient(
-      ellipse 45% 40% at 10% 85%,
+      transparent 60%),
+    radial-gradient(ellipse 45% 40% at 10% 85%,
       rgba(251, 145, 56, 0.08) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      ellipse 50% 50% at 90% 80%,
+      transparent 50%),
+    radial-gradient(ellipse 50% 50% at 90% 80%,
       rgba(240, 79, 87, 0.06) 0%,
-      transparent 50%
-    );
+      transparent 50%);
 }
 
 /* --------------------------------------------------------------------------
@@ -349,7 +345,9 @@ body {
   flex-direction: column;
 }
 
-.sidebar-section { margin-bottom: 22px; }
+.sidebar-section {
+  margin-bottom: 22px;
+}
 
 /* Push the bottom section to the bottom of the sidebar */
 .sidebar-bottom {
@@ -440,7 +438,9 @@ body {
   letter-spacing: 0.02em;
 }
 
-.sidebar-list { list-style: none; }
+.sidebar-list {
+  list-style: none;
+}
 
 .sidebar-item {
   display: flex;
@@ -496,9 +496,17 @@ body {
   color: white;
 }
 
-.app-badge.st { background: var(--op-green); }
-.app-badge.pf { background: var(--op-purple); }
-.app-badge.be { background: var(--op-blue); }
+.app-badge.st {
+  background: var(--op-green);
+}
+
+.app-badge.pf {
+  background: var(--op-purple);
+}
+
+.app-badge.be {
+  background: var(--op-blue);
+}
 
 /* Updates badge – OP blue */
 .updates-badge {
@@ -554,7 +562,9 @@ body {
   padding-bottom: 4px;
 }
 
-.sub-tab.active { color: #ffffff; }
+.sub-tab.active {
+  color: #ffffff;
+}
 
 /* Active sub-tab underline – OP purple */
 .sub-tab.active::after {
@@ -811,12 +821,16 @@ body {
   pointer-events: none;
 }
 
-.installed-list::-webkit-scrollbar { width: 4px; }
+.installed-list::-webkit-scrollbar {
+  width: 4px;
+}
+
 .installed-list::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.04);
   border-radius: 2px;
   margin: 8px 0;
 }
+
 .installed-list::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.15);
   border-radius: 2px;
@@ -828,7 +842,10 @@ body {
   padding: 14px 20px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 }
-.app-row:last-child { border-bottom: none; }
+
+.app-row:last-child {
+  border-bottom: none;
+}
 
 .app-row-left {
   display: flex;
@@ -871,22 +888,27 @@ body {
   background: linear-gradient(135deg, #31a8ff 0%, #001e36 100%);
   border: 1px solid rgba(49, 168, 255, 0.3);
 }
+
 .app-icon.ai {
   background: linear-gradient(135deg, #ff9a00 0%, #330000 100%);
   border: 1px solid rgba(255, 154, 0, 0.3);
 }
+
 .app-icon.xd {
   background: linear-gradient(135deg, #ff61f6 0%, #2a0024 100%);
   border: 1px solid rgba(255, 97, 246, 0.3);
 }
+
 .app-icon.pr {
   background: linear-gradient(135deg, #9999ff 0%, #00005b 100%);
   border: 1px solid rgba(153, 153, 255, 0.3);
 }
+
 .app-icon.ae {
   background: linear-gradient(135deg, #9999ff 0%, #00005b 100%);
   border: 1px solid rgba(153, 153, 255, 0.3);
 }
+
 .app-icon.id {
   background: linear-gradient(135deg, #ff3366 0%, #49021f 100%);
   border: 1px solid rgba(255, 51, 102, 0.3);
@@ -905,8 +927,14 @@ body {
   height: 8px;
   border-radius: 50%;
 }
-.status-dot.green { background: var(--op-green); }
-.status-dot.blue { background: var(--op-blue); }
+
+.status-dot.green {
+  background: var(--op-green);
+}
+
+.status-dot.blue {
+  background: var(--op-blue);
+}
 
 .status-text {
   font-size: 12.5px;
@@ -978,11 +1006,9 @@ body {
   overflow: hidden;
 
   background:
-    linear-gradient(
-      180deg,
+    linear-gradient(180deg,
       rgba(255, 255, 255, 0.05) 0%,
-      rgba(115, 119, 246, 0.03) 100%
-    );
+      rgba(115, 119, 246, 0.03) 100%);
 
   border: 1px solid rgba(115, 119, 246, 0.10);
 
@@ -1003,17 +1029,15 @@ body {
   right: 0;
   height: 60%;
   border-radius: 0 0 14px 14px;
-  background: linear-gradient(
-    to top,
-    rgba(251, 145, 56, 0.10) 0%,
-    rgba(240, 79, 87, 0.06) 30%,
-    transparent 100%
-  );
+  background: linear-gradient(to top,
+      rgba(251, 145, 56, 0.10) 0%,
+      rgba(240, 79, 87, 0.06) 30%,
+      transparent 100%);
   pointer-events: none;
   z-index: 0;
 }
 
-.report-card > * {
+.report-card>* {
   position: relative;
   z-index: 1;
 }
@@ -1374,8 +1398,13 @@ body {
   transition: opacity 200ms ease;
 }
 
-.theme-toggle__icon--sun { opacity: 0; }
-.theme-toggle__icon--moon { opacity: 1; }
+.theme-toggle__icon--sun {
+  opacity: 0;
+}
+
+.theme-toggle__icon--moon {
+  opacity: 1;
+}
 
 /* ==========================================================================
    REUSABLE GLASS TOKEN SYSTEM
@@ -1404,7 +1433,7 @@ body {
   --glass-highlight-subtle: inset 0 1px 0 rgba(255, 255, 255, 0.35);
   --glass-highlight-medium: inset 0 1px 0 rgba(255, 255, 255, 0.50);
   --glass-highlight-strong: inset 0 1px 0 rgba(255, 255, 255, 0.65),
-                             inset 0 0 0 0.5px rgba(255, 255, 255, 0.10);
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.10);
 }
 
 /*
@@ -1473,21 +1502,15 @@ html.theme-light .app-window {
 /* Colour bleed: let background gradient tint the glass softly */
 html.theme-light .app-window::after {
   background:
-    radial-gradient(
-      ellipse 50% 60% at 95% 30%,
+    radial-gradient(ellipse 50% 60% at 95% 30%,
       rgba(115, 119, 246, 0.06) 0%,
-      transparent 60%
-    ),
-    radial-gradient(
-      ellipse 50% 45% at 10% 85%,
+      transparent 60%),
+    radial-gradient(ellipse 50% 45% at 10% 85%,
       rgba(251, 145, 56, 0.05) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      ellipse 55% 55% at 90% 80%,
+      transparent 50%),
+    radial-gradient(ellipse 55% 55% at 90% 80%,
       rgba(240, 79, 87, 0.04) 0%,
-      transparent 50%
-    );
+      transparent 50%);
 }
 
 /* Noise overlay: slightly stronger on light */
@@ -1497,7 +1520,7 @@ html.theme-light .app-window::before {
 
 /* ---------- Control bar — subtle glass (navigation tier) ---------- */
 html.theme-light .control-bar {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.06);
   border-bottom: 1px solid rgba(255, 255, 255, 0.40);
   box-shadow:
     inset 0 -1px 0 rgba(0, 0, 0, 0.02),
@@ -1614,7 +1637,7 @@ html.theme-light .sidebar-profile-meta {
 
 /* ---------- Main content area — match sidebar opacity ---------- */
 html.theme-light .main-content {
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.26);
   backdrop-filter: blur(28px) saturate(1.2);
   -webkit-backdrop-filter: blur(28px) saturate(1.2);
 }
@@ -1694,12 +1717,10 @@ html.theme-light .report-card {
 
 /* Light mode warm glow: very soft */
 html.theme-light .report-card::after {
-  background: linear-gradient(
-    to top,
-    rgba(251, 145, 56, 0.03) 0%,
-    rgba(240, 79, 87, 0.015) 30%,
-    transparent 100%
-  );
+  background: linear-gradient(to top,
+      rgba(251, 145, 56, 0.03) 0%,
+      rgba(240, 79, 87, 0.015) 30%,
+      transparent 100%);
 }
 
 html.theme-light .report-card-title {
@@ -1793,16 +1814,21 @@ html.theme-light .theme-toggle__knob {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
 }
 
-html.theme-light .theme-toggle__icon--sun { opacity: 1; }
-html.theme-light .theme-toggle__icon--moon { opacity: 0; }
+html.theme-light .theme-toggle__icon--sun {
+  opacity: 1;
+}
+
+html.theme-light .theme-toggle__icon--moon {
+  opacity: 0;
+}
 
 /* ---------- Donut chart bg ring: adapt for light ---------- */
-html.theme-light .donut-svg > circle:first-child {
+html.theme-light .donut-svg>circle:first-child {
   stroke: rgba(0, 0, 0, 0.05);
 }
 
 /* Progress ring bg circles */
-html.theme-light .ring-svg > circle:first-child {
+html.theme-light .ring-svg>circle:first-child {
   stroke: rgba(0, 0, 0, 0.05);
 }
 
