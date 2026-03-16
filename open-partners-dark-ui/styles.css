@@ -1385,7 +1385,7 @@ body {
 /* Background: use Digitalism (soft, atmospheric light gradient) */
 html.theme-light .background {
   background: #f0ece4;
-  background-image: url('../assets/backgrounds/OP Gradients_Digitalism_1920x1080.jpg');
+  background-image: url('../assets/backgrounds/OP Gradients_Rainbow.jpg');
 }
 
 html.theme-light body {
