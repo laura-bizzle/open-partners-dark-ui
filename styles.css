@@ -56,7 +56,7 @@ body {
   inset: 0;
   z-index: 0;
   background: var(--op-black);
-  background-image: url('../assets/backgrounds/OP Gradients Dark_Abyss (1).jpg');
+  background-image: url('assets/backgrounds/OP Gradients Dark_Abyss (1).jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -601,7 +601,7 @@ body {
   display: flex;
 
   /* OP branded background image */
-  background-image: url('../assets/backgrounds/OP Gradients Colour_Hyperwave.jpg');
+  background-image: url('assets/backgrounds/OP Gradients Colour_Hyperwave.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1480,7 +1480,7 @@ body {
 /* Background: Dawn (warm, soft atmospheric gradient) */
 html.theme-light .background {
   background: #f0ece4;
-  background-image: url('../assets/backgrounds/OP Gradients_Dawn.jpg');
+  background-image: url('assets/backgrounds/OP Gradients_Dawn.jpg');
 }
 
 html.theme-light body {
@@ -1661,7 +1661,7 @@ html.theme-light .sub-tab.active {
 
 /* ---------- Promo banner — stays fully opaque (Prism gradient) ---------- */
 html.theme-light .promo-banner {
-  background-image: url('../assets/backgrounds/OP Gradients Colour_Prism.jpg');
+  background-image: url('assets/backgrounds/OP Gradients Colour_Prism.jpg');
   border: none;
   box-shadow:
     0 4px 16px rgba(0, 0, 0, 0.06),
